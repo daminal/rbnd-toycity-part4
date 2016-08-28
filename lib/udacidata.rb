@@ -28,7 +28,10 @@ class Udacidata
     end
     obj
   end
-  def self.first( num = nil)
-    num ? all.first(num) : all.first
+  def self.first(n = nil)
+    n ? all.first(n) : all.first
+  end
+  def self.last(n = nil)
+  	n ? all.last(n) : all.last
   end
 end
