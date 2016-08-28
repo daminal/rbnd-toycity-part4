@@ -3,14 +3,15 @@ require_relative 'errors'
 require 'csv'
 
 class Udacidata
-	# Used LittleStupid/rbnd-toycity-part4 for code examples. 
+	# Used LittleStupid/rbnd-toycity-part4 for code examples.
+	create_finder_methods( "name", "brand" )
   # Your code goes here!
-  # Make a new array, parse csv into objects and return them in array
   def self.all
     objects = Array.new
     data_path = File.dirname(__FILE__) + "/../data/data.csv"
-    CSV.foreach( data_path, headers: true ) do |data|
-      objects << self.new( id: data["id"], price: data["price"], brand: data["brand"], name: data["product"] )
+    CSV.foreach(data_path, headers: true) do |data|
+    	obj = {id: data["id"], price: data["price"], brand: data["brand"], name: data["product"]}
+      objects << self.new(obj)
     end
     objects
   end
@@ -26,5 +27,8 @@ class Udacidata
       end
     end
     obj
+  end
+  def self.first( num = nil)
+    num ? all.first(num) : all.first
   end
 end
