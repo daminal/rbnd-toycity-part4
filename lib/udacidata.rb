@@ -55,23 +55,13 @@ class Udacidata
 	def self.where(opt = {})
 		self.all.select {|prod| opt[:brand] == prod.brand || opt[:name] == prod.name}
 	end
-	#get the object and for each attribute present, redefine that attribute. Then write it. 
-  def update( options = {} )
-  	tbl = CSV.table(@@file)
-  	tbl.each do |data|
-	    if( data[:id] == id )
-	      data[:brand] = options[:brand] if( options[:brand] != nil )
-	      data[:price] = options[:price] if( options[:price] != nil )
-    	end
-  	end
-  CSV.open(@@file, "w") do |csv|
-  	csv << ["id", "brand", "product", "price"]
-    tbl.each do |prod|
-      csv << prod
-    end
+	#Thanks to AntoineGS on github.com for ideas for #update.
+  def update(opts={})
+    opts.each{|key,value| self.instance_variable_set("@#{key}", value)}
+    self.class.destroy(self.id)
+    self.class.create(id: self.id, brand: self.brand, name: self.name, price: self.price)
+    self
   end
-  Product.find(@id)
-end
 	# def update(opt = {})
 	# 	brand = opt[:brand] ? opt[:brand] : self.brand
 	# 	name = opt[:name] ? opt[:name] : self.name
