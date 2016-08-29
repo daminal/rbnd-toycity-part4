@@ -16,9 +16,6 @@ class Product < Udacidata
     @name = opts[:name]
     @price = opts[:price]
   end
-    def to_s
-    "id:" + @id.to_s + " price:" + @price.to_s + "brand: " + @brand.to_s + "name : " + @name.to_s
-  end
 
   private
 
