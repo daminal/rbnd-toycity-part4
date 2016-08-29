@@ -1,6 +1,6 @@
 module Analyzable
   # Some of this code is borrowed from AntoineGS at github.com
-	def average(attribute, items)
+	def average_price(attribute, items)
     sum = items.map { |item| item.send(attribute.to_sym).to_f }.reduce(:+)
     return (sum / items.size).round(2)
   end
