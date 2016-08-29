@@ -1,9 +1,9 @@
 module Analyzable
   # Some of this code is borrowed from AntoineGS at github.com
-	def average_price(prods)
-		sum = prods.inject(0){|sum, prod| sum += prod.price.to_f}
-		(sum/prods.count).round(2)
-	end
+	def average(attribute, items)
+    sum = items.map { |item| item.send(attribute.to_sym).to_f }.reduce(:+)
+    return (sum / items.size).round(2)
+  end
   def count_by_brand(prods)
     tally = {}
     prods.each do |prod|
@@ -17,11 +17,8 @@ module Analyzable
   def count_by_name(prods)
 	  tally = {}
 	  prods.each do |prod|
-	    unless tally.keys.include?(prod.name)
-	    	tally[prod.name] = 1
-	    else 
-	    	tally[prod.name] += 1
-	    end
+	    tally[prod.name] = 0 
+	    tally[prod.name] += 1
 	  end
 	  tally
 	end
@@ -47,5 +44,6 @@ average_price
 print_report
 
 and print out a summary report
+
 
 =end

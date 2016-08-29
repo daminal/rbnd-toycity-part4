@@ -33,11 +33,15 @@ class Udacidata
   def self.last(n = nil)
   	n ? all.last(n) : all.last
   end
-  def self.find(id)
-  	prod = all[id-1]
-  	raise ProductNotFoundError unless prod
-  	prod
-  end
+	def self.find(index)
+		prods = self.all
+		prods.select! { |prod| prod.id == index }
+		if prods.empty?
+			raise NoSuchProductError
+		else
+			return prods[0]
+		end
+	end
   def self.destroy(id)
 	  object = find(id)
 	  if id
