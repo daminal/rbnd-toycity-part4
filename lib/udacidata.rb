@@ -34,7 +34,9 @@ class Udacidata
   	n ? all.last(n) : all.last
   end
   def self.find(id)
-  	all[id-1]
+  	prod = all[id-1]
+  	raise ProductNotFoundError unless prod
+  	prod
   end
   def self.destroy(id)
 	  object = find(id)
